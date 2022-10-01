@@ -5,7 +5,7 @@ class AppCarousel extends HTMLElement{
         super();
     }
     connectedCallback(){
-        this.source = this.getAttribute('src');
+        this.source = this.getAttribute('src') || "./img/carousel.jpg";
         this.render();
     }
     render(){
