@@ -2,6 +2,7 @@ import '../components/song-shelf.js';
 import '../components/song-list.js';
 import '../components/song-info.js';
 import '../components/search-bar.js';
+import '../components/error-message.js';
 import DataSource from "../data/data-source.js";
 
 const main = () => {
@@ -11,12 +12,12 @@ const main = () => {
     const searchSongs = () => {
         DataSource.searchSongs(searchElement.inputValue)
         .then(renderResult)
-        .catch(fallbackResult);
+        .catch(renderError);
     }
     const loadRecommended = () => {
         DataSource.recommended()
         .then(renderRecommended)
-        .catch(fallbackResult);
+        .catch(renderError);
     };
     const renderResult = songs => {
         const shelfElement = document.createElement('song-shelf');
@@ -44,16 +45,23 @@ const main = () => {
         mainElement.innerHTML = '';
         mainElement.appendChild(element);
     }
-    const fallbackResult = message => {
-        songListElement.renderError(message);
+    const renderError = (message,category="Hasil Pencarian") => {
+        const errorElement = document.createElement('error-message');
+        errorElement.setAttribute('msg',message);
+        errorElement.setAttribute('category',category);
+        renderMain(errorElement);
     }
     const setSongItemEvent = () => {
         const songItems = document.querySelectorAll('.song-item');
         songItems.forEach(songItem => {
             songItem.addEventListener('click', async () => {
-                const songData = await DataSource.getSongInfo(songItem.dataset.target);
-                songData.lyrics = await DataSource.getSongLyrics(songItem.dataset.target);
-                renderSongInfo(songData);
+                try {
+                    const songData = await DataSource.getSongInfo(songItem.dataset.target);
+                    songData.lyrics = await DataSource.getSongLyrics(songItem.dataset.target);
+                    renderSongInfo(songData);
+                } catch (error) {
+                    renderError('API Key telah mencapai batas pemakaian. Harap ganti dengan yang baru !','API Error');
+                }
             });
         });
     }

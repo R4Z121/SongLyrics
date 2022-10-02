@@ -12,13 +12,14 @@ class SongShelf extends HTMLElement{
                 song-shelf{
                     display: block;
                 }
-                section{
+                .song-shelf{
                     margin-bottom: 20px;
+                    min-height: 500px;
                 }
-                section h1{
+                .song-shelf h1{
                     margin-bottom: 10px;
                 }
-                section hr{
+                .song-shelf hr{
                     padding: 1px;
                     border-radius: 5px;
                     background-color: grey;

@@ -28,23 +28,6 @@ class SongList extends HTMLElement{
             this.appendChild(songItem);
         });
     }
-    renderError(message){
-        this.innerHTML = ``;
-        this.innerHTML += `
-            <style>
-                .error-message {
-                    height: 300px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: red;
-                }
-            </style>
-            <div class='error-message'>
-                <h2 class="placeholder">${message}</h2>
-            </div>
-        `;
-    }
 }
 
 customElements.define('song-list',SongList);

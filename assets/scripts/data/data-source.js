@@ -23,7 +23,7 @@ class DataSource{
         return fetch(`https://genius-song-lyrics1.p.rapidapi.com/search?q=${keyword}&per_page=30&page=1`, this.options())
         .then(response => response.json())
         .then(response => {
-            if(response.response.hits){
+            if(response.response.hits.length){
                 const songs = response.response.hits.map(song => {
                     return {
                         id: song.result.id,
@@ -34,8 +34,11 @@ class DataSource{
                 });
                 return Promise.resolve(songs);
             }else{
-                return Promise.reject(`${keyword} tidak ditemukan`)
+                return Promise.reject(`${keyword} tidak ditemukan`);
             }
+        })
+        .catch(error => {
+            return Promise.reject(error);
         })
     }
     static getSongInfo(songId){
@@ -53,6 +56,10 @@ class DataSource{
             }
             return songInfo;
         })
+        .catch(error => {
+            console.log('Batas quota terlampaui');
+            return Promise.reject(error);
+        })
     }
     static getSongLyrics(songId){
         return fetch(`https://genius-song-lyrics1.p.rapidapi.com/songs/${songId}/lyrics`, this.options())
@@ -60,6 +67,10 @@ class DataSource{
         .then(response => {
             const lyricsText = response.response.lyrics.lyrics.body.html;
             return lyricsText;
+        })
+        .catch(error => {
+            console.log('Batas quota terlampaui');
+            return Promise.reject(error);
         })
     }
 }
