@@ -8,8 +8,10 @@ import DataSource from "../data/data-source.js";
 const main = () => {
     const mainElement = document.querySelector('main');
     const searchElement = document.querySelector('search-bar');
+    const container = document.querySelector('.container');
 
     const searchSongs = () => {
+        container.classList.add('active');
         DataSource.searchSongs(searchElement.inputValue)
         .then(renderResult)
         .catch(renderError);
@@ -28,6 +30,7 @@ const main = () => {
         songListElement.songs = songs;
         shelfElement.querySelector('.song-shelf').appendChild(songListElement);
         setSongItemEvent();
+        container.classList.remove('active');
     }
     const renderRecommended = songs => {
         const songShelfSection = document.querySelector('.song-shelf');
@@ -35,11 +38,13 @@ const main = () => {
         songListElement.songs = songs;
         songShelfSection.appendChild(songListElement);
         setSongItemEvent();
+        container.classList.remove('active');
     };
     const renderSongInfo = songData => {
         const songInfoElement = document.createElement('song-info');
         songInfoElement.info = songData;
         renderMain(songInfoElement);
+        container.classList.remove('active');
     }
     const renderMain = element => {
         mainElement.innerHTML = '';
@@ -55,6 +60,7 @@ const main = () => {
         const songItems = document.querySelectorAll('.song-item');
         songItems.forEach(songItem => {
             songItem.addEventListener('click', async () => {
+                container.classList.add('active');
                 try {
                     const songData = await DataSource.getSongInfo(songItem.dataset.target);
                     songData.lyrics = await DataSource.getSongLyrics(songItem.dataset.target);
