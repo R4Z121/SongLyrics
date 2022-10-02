@@ -10,13 +10,7 @@ const main = () => {
 
     const searchSongs = () => {
         DataSource.searchSongs(searchElement.inputValue)
-        .then(results => {
-            if(results.length){
-                renderResult(results);
-            }else{
-                fallbackResult('Tidak ada hasil ditemukan');
-            }
-        })
+        .then(renderResult)
         .catch(fallbackResult);
     }
     const loadRecommended = () => {

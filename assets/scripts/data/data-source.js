@@ -23,15 +23,19 @@ class DataSource{
         return fetch(`https://genius-song-lyrics1.p.rapidapi.com/search?q=${keyword}&per_page=30&page=1`, this.options())
         .then(response => response.json())
         .then(response => {
-            const songs = response.response.hits.map(song => {
-                return {
-                    id: song.result.id,
-                    title: song.result.title,
-                    artists: song.result.artist_names,
-                    cover: song.result.header_image_url
-                }
-            });
-            return songs;
+            if(response.response.hits){
+                const songs = response.response.hits.map(song => {
+                    return {
+                        id: song.result.id,
+                        title: song.result.title,
+                        artists: song.result.artist_names,
+                        cover: song.result.header_image_url
+                    }
+                });
+                return Promise.resolve(songs);
+            }else{
+                return Promise.reject(`${keyword} tidak ditemukan`)
+            }
         })
     }
     static getSongInfo(songId){
@@ -49,7 +53,6 @@ class DataSource{
             }
             return songInfo;
         })
-        .catch(err => console.error(err));
     }
     static getSongLyrics(songId){
         return fetch(`https://genius-song-lyrics1.p.rapidapi.com/songs/${songId}/lyrics`, this.options())
@@ -58,7 +61,6 @@ class DataSource{
             const lyricsText = response.response.lyrics.lyrics.body.html;
             return lyricsText;
         })
-        .catch(err => console.error(err));
     }
 }
 
