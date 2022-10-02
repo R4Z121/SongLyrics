@@ -55,6 +55,7 @@ const main = () => {
         errorElement.setAttribute('msg',message);
         errorElement.setAttribute('category',category);
         renderMain(errorElement);
+        container.classList.remove('active');
     }
     const setSongItemEvent = () => {
         const songItems = document.querySelectorAll('.song-item');
