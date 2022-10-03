@@ -38,7 +38,7 @@ class DataSource{
             }
         })
         .catch(error => {
-            return Promise.reject(error);
+            return Promise.reject('Batas penggunaan API terlampaui. Harap ganti key dengan yang baru !');
         })
     }
     static getSongInfo(songId){
@@ -57,8 +57,7 @@ class DataSource{
             return songInfo;
         })
         .catch(error => {
-            console.log('Batas quota terlampaui');
-            return Promise.reject(error);
+            return Promise.reject('Batas penggunaan API terlampaui. Harap ganti key dengan yang baru !','API Error');
         })
     }
     static getSongLyrics(songId){
