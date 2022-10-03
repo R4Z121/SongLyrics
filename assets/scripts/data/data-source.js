@@ -5,7 +5,7 @@ class DataSource{
         return {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '55153ac275mshd45f5b1f8680de2p1b7c31jsnb9efb701a32f',
+                'X-RapidAPI-Key': 'YOUR_KEY',
                 'X-RapidAPI-Host': 'genius-song-lyrics1.p.rapidapi.com'
             }
         }
