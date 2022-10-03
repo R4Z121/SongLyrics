@@ -12,6 +12,7 @@ class ErrorMessage extends HTMLElement{
                 }
                 .error-box h1{
                     margin-bottom: 10px;
+                    font-size: 1.5rem;
                 }
                 .error-box hr{
                     padding: 1px;
@@ -24,6 +25,11 @@ class ErrorMessage extends HTMLElement{
                     justify-content: center;
                     align-items: center;
                     color: red;
+                }
+                @media(max-width: 500px){
+                    .error-box h1{
+                        font-size: 1.3rem;
+                    }
                 }
             </style>
             <div class="error-box">

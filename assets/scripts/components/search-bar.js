@@ -27,13 +27,13 @@ class SearchBar extends HTMLElement{
                     display: flex;
                     gap: 7px;
                 }
-                .search-bar input{
+                #search-field{
                     width: 100%;
                     padding: 10px;
                     font-size: 15px;
                     outline: none;
                     border: none;
-                    border-radius: 7px;
+                    border-radius: 4px;
                 }
                 button{
                     border: none;
@@ -44,16 +44,26 @@ class SearchBar extends HTMLElement{
                 }
                 .btn{
                     padding: 10px;
-                    border-radius: 7px;
+                    border-radius: 4px;
                     min-width: 70px;
+                }
+                @media(max-width: 550px){
+                    #search-field, #search-button{
+                        font-size: 13px;
+                    }
                 }
             </style>
             <div class="search-bar">
                 <input id="search-field" type="text" placeholder="Search songs, albums, artists">
-                <button id='searchButton' class="btn">Cari</button>
+                <button id='search-button' class="btn" type='submit'>Cari</button>
             </div>
         `;
-        this._shadowRoot.querySelector('#searchButton').addEventListener('click', this._clickEvent);
+        this._shadowRoot.querySelector('#search-button').addEventListener('click', this._clickEvent);
+        this._shadowRoot.querySelector('#search-field').addEventListener('keyup',event => {
+            if(event.keyCode == 13){
+                this._shadowRoot.querySelector('#search-button').click();
+            }
+        });
     }
 }
 

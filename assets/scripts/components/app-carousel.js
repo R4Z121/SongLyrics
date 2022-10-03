@@ -51,9 +51,14 @@ class AppCarousel extends HTMLElement{
                     font-size: 2.5rem;
                     text-align: center;
                 }
+                @media(max-width: 550px){
+                    .carousel-title{
+                        font-size: 1.5rem;
+                    }
+                }
             </style>
             <div class="carousel">
-                <img src="${this.source}" alt="songLyrics">
+                <img src="${this.source}" alt="...">
                 <div class="carousel-caption">
                     <h2 class="carousel-title">Temukan Lirik Lagu Favorit Kamu Disini</h2>
                     <search-bar></search-bar>
